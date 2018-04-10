@@ -6,15 +6,14 @@ import "rxjs/add/operator/map";
 export class WeatherApiProvider {
 
   private apiKey: string = '9eb3d214fabe3030';
-  public apiUrl: string;
+  private apiUrl: string;
 
-  constructor(public http: HttpClient) {
+  constructor(private http: HttpClient) {
     this.apiUrl = `http://api.wunderground.com/api/${this.apiKey}/conditions/q`
   }
 
   getWeather(state, city) {
-    return this.http.get(`${this.apiUrl}/${state}/${city}.json`)
-      .map((response: any) => response.json());
+    return this.http.get(`${this.apiUrl}/${state}/${city}.json`);
   }
 
 }
