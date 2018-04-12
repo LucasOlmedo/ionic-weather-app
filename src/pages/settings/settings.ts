@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the SettingsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -15,11 +9,42 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  city: string = '';
+  state: string = '';
+
+  constructor(
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private storage: Storage,
+    private toast: ToastController
+  ) {
+
+    this.storage.get('location').then((value) => {
+      if (value != null) {
+        let location = JSON.parse(value);
+        this.city = location.city;
+        this.state = location.state;
+      } else {
+        this.city = 'Miami';
+        this.state = 'FL';
+      }
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
+  saveLocation() {
+    let location = {
+      city: this.city,
+      state: this.state
+    };
+    
+    this.storage.set('location', JSON.stringify(location));
+    
+    let toast = this.toast.create({
+      message: 'Location was changed successfully',
+      duration: 2000,
+      position: 'top'
+    });
+  
+    toast.present();
   }
-
 }

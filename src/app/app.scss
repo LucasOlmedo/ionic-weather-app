@@ -1,6 +1,16 @@
 .home-container {
     background: color($colors, primary);
     color: color($colors, light);
+}
+
+.about-container {
+    background: color($colors, primary);
+    color: color($colors, light);
+    margin-top: 30px;
+}
+.settings-container {
+    background: color($colors, primary);
+    color: color($colors, light);
     margin-top: 30px;
 }
 
@@ -12,5 +22,9 @@
     font-size: 50px;
     text-align: center;
     font-weight: normal;
+}
+
+.location > small {
+    font-size: 0.6em;
 }
 
